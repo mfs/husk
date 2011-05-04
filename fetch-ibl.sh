@@ -53,7 +53,7 @@ wget -q -O $CFILE $ibl_uri || { echo "wget failed" >&2; exit 1; }
 TFILE="${CFILE}.txt"
 gzip -dfq --stdout $CFILE > $TFILE || exit 1
 
-# Clean the file up
+# Format the file using awk
 DST_FILE="$LIBDIR/${fetch_list}.txt"
 [[ -e "${DST_FILE}" ]] && mv -f ${DST_FILE} ${DST_FILE}.old
 awk -F: '{ if (NF == 2) print $2 }' $TFILE > $DST_FILE || exit 1
