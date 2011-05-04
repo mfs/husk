@@ -47,7 +47,7 @@ fetch_list="$1"
 
 # Attempt to fetch the list...
 ibl_uri="$(printf $URI_BASE $fetch_list)"
-wget -q -O $CFILE $ibl_uri || { echo "wget failed"; exit 1; }
+wget -q -O $CFILE $ibl_uri || { echo "wget failed" >&2; exit 1; }
 
 # ...and decompress it into our lib dir
 TFILE="${CFILE}.txt"
