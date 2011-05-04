@@ -2,6 +2,7 @@ FOOBAR=husk
 D_BIN=/usr/local/sbin
 D_DOC=/usr/local/share/doc/$(FOOBAR)
 D_CNF=/etc/$(FOOBAR)
+D_LIB=/var/lib/$(FOOBAR)
 D_HELPERS=$(D_CNF)/helpers/
 
 all: bin docs config
@@ -11,6 +12,8 @@ install: bin docs config
 bin: husk.pl fire.sh
 	install -D -m 0755 $(FOOBAR).pl $(DESTDIR)$(D_BIN)/$(FOOBAR)
 	install -D -m 0755 fire.sh $(DESTDIR)$(D_BIN)/fire
+	install -D -m 0755 fetch-ibl.sh $(DESTDIR)$(D_BIN)/fetch-ibl
+	mkdir -p $(DESTDIR)$(D_LIB)
 
 docs: ABOUT README rules.conf.simple rules.conf.standalone LICENSE
 	for FILE in ABOUT README rules.conf.simple rules.conf.standalone LICENSE ; do \
@@ -32,4 +35,5 @@ uninstall:
 	rm -f $(DESTDIR)$(D_BIN)/fire
 	rm -f $(DESTDIR)$(D_DOC)/*
 	rmdir $(DESTDIR)$(D_DOC)/
+	rm -Rf $(DESTDIR)$(D_LIB)
 	echo "Leaving '$(DESTDIR)$(D_CNF)' untouched"
