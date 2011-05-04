@@ -77,6 +77,8 @@ my $qr_kw_src_host	= qr/\bsource group (\S+)\b/io;
 my $qr_kw_dst_host	= qr/\bdest(ination)? group (\S+)\b/io;
 my $qr_kw_src_range	= qr/\bsource range ($qr_ip_address) to ($qr_ip_address)\b/io;
 my $qr_kw_dst_range	= qr/\bdest(ination)? range ($qr_ip_address) to ($qr_ip_address)\b/io;
+my $qr_kw_src_ibl	= qr/\bsource ibl (\S+)\b/io;
+my $qr_kw_dst_ibl	= qr/\bdest(ination)? ibl (\S+)\b/io;
 my $qr_port_pattern	= qr/(\d|\w|-)+/io;
 my $qr_kw_sport		= qr/\bsource\s+port\s+(($qr_port_pattern:?)+)\b/io;
 my $qr_kw_dport		= qr/\b(dest(ination)?)?\s*port (($qr_port_pattern:?)+)\b/io;
@@ -851,6 +853,12 @@ sub compile_call {
 		{$criteria{'srcrange'} = "$1-$2"};
 	if ($rule =~ s/$qr_kw_dst_range//s)
 		{$criteria{'dstrange'} = "$2-$3"};
+	if ($rule =~ s/$qr_kw_src_ibl//s)
+		# Source iblocklist
+		#TODO:
+	if ($rule =~ s/$qr_kw_dst_ibl//s)
+		# Destination iblocklist
+		#TODO:
 	if ($rule =~ s/$qr_kw_sport//s) {
 		my $port = lc($1);
 		$criteria{'spt'} = $port;
